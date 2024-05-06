@@ -2,4 +2,10 @@ h1 {
   color: #ff69b4;
   font-family: cursive;
 }
+
+div {
+  aspect-ratio: 1 / 2;
+  background-color: #ff69b4;
+  width: 100px;
+}
 /*# sourceMappingURL=index.4d663569.css.map */
