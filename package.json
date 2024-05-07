@@ -1,7 +1,6 @@
 {
     "name": "grit-js",
     "version": "1.0.0",
-    "main": "index.js",
     "author": "olesien <olesien2@gmail.com>",
     "license": "MIT",
     "source": "src/index.html",
