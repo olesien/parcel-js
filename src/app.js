@@ -37,14 +37,56 @@
 // };
 // anime(animationObj);
 
-import { getDatabase, ref, onValue } from "firebase/database";
+import {
+    getDatabase,
+    ref,
+    onValue,
+    remove,
+    update,
+    push,
+} from "firebase/database";
 import { firebaseApp } from "./firebase";
 
 const db = getDatabase(firebaseApp);
 const usersRef = ref(db, "/main/users");
+
+const updateUser = () => {
+    console.log("UPDATING");
+    const userToUpdateRef = ref(db, "/main/users/test");
+    update(userToUpdateRef, { admin: true });
+};
+
+const removeUser = () => {
+    console.log("REMOVING");
+    const userToRemoveRef = ref(db, "/main/users/test");
+    remove(userToRemoveRef);
+};
+
+const addUser = () => {
+    console.log("ADDING");
+    const newID = push(usersRef).key;
+    const newUser = {};
+    newUser[newID] = {
+        name: "Gandalf",
+        score: 9,
+        admin: true,
+    };
+
+    update(usersRef, newUser);
+};
+
+addUser();
 
 // callback-funktionen anropas varje gång en ändring sker på en child node till referensen
 onValue(usersRef, (snapshot) => {
     const users = snapshot.val();
     console.log(users);
 });
+// const userToDeleteRef = ref(db, "/main/users/test");
+// remove(userToDeleteRef);
+
+// const update = () => {
+//     const userToUpdateRef = ref(db, "/main/users/test");
+//     update(userToUpdateRef, { admin: true });
+// };
+// update();

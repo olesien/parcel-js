@@ -620,11 +620,41 @@ var _database = require("firebase/database");
 var _firebase = require("./firebase");
 const db = (0, _database.getDatabase)((0, _firebase.firebaseApp));
 const usersRef = (0, _database.ref)(db, "/main/users");
+const updateUser = ()=>{
+    console.log("UPDATING");
+    const userToUpdateRef = (0, _database.ref)(db, "/main/users/test");
+    (0, _database.update)(userToUpdateRef, {
+        admin: true
+    });
+};
+const removeUser = ()=>{
+    console.log("REMOVING");
+    const userToRemoveRef = (0, _database.ref)(db, "/main/users/test");
+    (0, _database.remove)(userToRemoveRef);
+};
+const addUser = ()=>{
+    console.log("ADDING");
+    const newID = (0, _database.push)(usersRef).key;
+    const newUser = {};
+    newUser[newID] = {
+        name: "Gandalf",
+        score: 9,
+        admin: true
+    };
+    (0, _database.update)(usersRef, newUser);
+};
+addUser();
 // callback-funktionen anropas varje gång en ändring sker på en child node till referensen
 (0, _database.onValue)(usersRef, (snapshot)=>{
     const users = snapshot.val();
     console.log(users);
-});
+}); // const userToDeleteRef = ref(db, "/main/users/test");
+ // remove(userToDeleteRef);
+ // const update = () => {
+ //     const userToUpdateRef = ref(db, "/main/users/test");
+ //     update(userToUpdateRef, { admin: true });
+ // };
+ // update();
 
 },{"firebase/database":"SJ4UY","./firebase":"bQFTD"}],"SJ4UY":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
